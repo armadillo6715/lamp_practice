@@ -82,7 +82,7 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES(':name', :price, :stock, ':filename', :status_value);
+    VALUES(:name, :price, :stock, :filename, :status_value);
   ";
 
   return execute_query($db, $sql, array(':name'=>$name,':price'=>$price,':stock'=>$stock,':filename'=>$filename,':status_value'=>$status_value));
