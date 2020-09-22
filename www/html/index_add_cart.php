@@ -24,7 +24,7 @@ if(add_cart($db,$user['user_id'], $item_id)){
 }
 
 //トークン照合
-is_valid_csrf_token($token)
+is_valid_csrf_token($token);
 //トークン破棄
 $_SESSION['csrf_token'] = '';
 
