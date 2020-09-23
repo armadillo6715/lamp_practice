@@ -13,7 +13,6 @@ if(is_logined() === false){
 
 //トークン照合
 $token = get_post('token');
-
 if (is_valid_csrf_token($token) === false) {
   redirect_to(LOGIN_URL);
 }
