@@ -8,6 +8,13 @@ session_start();
 if(is_logined() === true){
   redirect_to(HOME_URL);
 }
+//トークン照合
+$token = get_post('token');
+if (is_valid_csrf_token($token) === false) {
+  redirect_to(LOGIN_URL);
+}
+//トークン破棄
+unset($_SESSION['csrf_token']);
 
 $name = get_post('name');
 $password = get_post('password');
