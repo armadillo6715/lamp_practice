@@ -1,6 +1,7 @@
 <?php
-
+//modelドキュメントルートの取得
 define('MODEL_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../model/');
+//viewドキュメントルートの取得
 define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../view/');
 
 
@@ -21,10 +22,10 @@ define('HOME_URL', '/index.php');
 define('CART_URL', '/cart.php');
 define('FINISH_URL', '/finish.php');
 define('ADMIN_URL', '/admin.php');
-
+//一文字以上の英数字
 define('REGEXP_ALPHANUMERIC', '/\A[0-9a-zA-Z]+\z/');
+//0以上の数字
 define('REGEXP_POSITIVE_INTEGER', '/\A([1-9][0-9]*|0)\z/');
-
 
 define('USER_NAME_LENGTH_MIN', 6);
 define('USER_NAME_LENGTH_MAX', 100);

@@ -21,7 +21,7 @@ function get_item($db, $item_id){
 
   return fetch_query($db, $sql);
 }
-
+//全商品情報を取得
 function get_items($db, $is_open = false){
   $sql = '
     SELECT
@@ -34,6 +34,7 @@ function get_items($db, $is_open = false){
     FROM
       items
   ';
+  //ステータスが公開の商品のみ取得
   if($is_open === true){
     $sql .= '
       WHERE status = 1
@@ -42,7 +43,7 @@ function get_items($db, $is_open = false){
 
   return fetch_all_query($db, $sql);
 }
-
+//DB接続状態ならば、全商品情報を取得
 function get_all_items($db){
   return get_items($db);
 }
