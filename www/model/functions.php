@@ -108,16 +108,16 @@ function delete_image($filename){
   return false;
   
 }
-//文字数の範囲を決定する
+//文字数の有効範囲を決定する
 function is_valid_length($string, $minimum_length, $maximum_length = PHP_INT_MAX){
   $length = mb_strlen($string);
   return ($minimum_length <= $length) && ($length <= $maximum_length);
 }
-
+//1文字以上の英数字に制限
 function is_alphanumeric($string){
   return is_valid_format($string, REGEXP_ALPHANUMERIC);
 }
-
+//0以上の整数に制限
 function is_positive_integer($string){
   return is_valid_format($string, REGEXP_POSITIVE_INTEGER);
 }
@@ -126,40 +126,41 @@ function is_valid_format($string, $format){
   return preg_match($format, $string) === 1;
 }
 
-
+//アップロードされたファイルがjpeg,pngであるかを検証
 function is_valid_upload_image($image){
   //ファイルがアップロードされたか検証
   if(is_uploaded_file($image['tmp_name']) === false){
     set_error('ファイル形式が不正です。');
     return false;
   }
+  //イメージの型(jpeg,pngなど)を定義する
   $mimetype = exif_imagetype($image['tmp_name']);
-  if( isset(PERMITTED_IMAGE_TYPES[$mimetype]) === false ){
+  if(isset(PERMITTED_IMAGE_TYPES[$mimetype]) === false ){
     set_error('ファイル形式は' . implode('、', PERMITTED_IMAGE_TYPES) . 'のみ利用可能です。');
     return false;
   }
   return true;
 }
-
+//htmlエスケープをセット
 function h($str) {
   $str = htmlspecialchars($str,ENT_QUOTES,'utf-8');
   return $str;
 }
 
-//トークン生成関数
+//トークン生成
 function get_csrf_token(){
-  // get_random_string()はユーザー定義関数。
+  // ランダムな30文字
   $token = get_random_string(30);
-  // set_session()はユーザー定義関数。
+  // $_SESSEION['csrf_token'] = $tokenを作成
   set_session('csrf_token', $token);
   return $token;
 }
 
-//トークン照合関数
+//トークン照合
 function is_valid_csrf_token($token){
   if($token === '') {
     return false;
   }
-  // get_session()はユーザー定義関数
+  // $_SESSION['csrt_token'] を取得し、$tokenに代入
   return $token === get_session('csrf_token');
 }
