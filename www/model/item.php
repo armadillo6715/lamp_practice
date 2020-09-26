@@ -1,9 +1,9 @@
 <?php
+//外部ファイルを読み込み
 require_once MODEL_PATH . 'functions.php';
 require_once MODEL_PATH . 'db.php';
 
-// DB利用
-
+//商品情報を単一取得
 function get_item($db, $item_id){
   $sql = "
     SELECT
@@ -18,9 +18,9 @@ function get_item($db, $item_id){
     WHERE
       item_id = {$item_id}
   ";
-
   return fetch_query($db, $sql);
 }
+
 //全商品情報を取得
 function get_items($db, $is_open = false){
   $sql = '
@@ -40,18 +40,20 @@ function get_items($db, $is_open = false){
       WHERE status = 1
     ';
   }
-
   return fetch_all_query($db, $sql);
 }
+
 //DB接続状態ならば、全商品情報を取得
 function get_all_items($db){
   return get_items($db);
 }
 
+//公開商品だけ取得
 function get_open_items($db){
   return get_items($db, true);
 }
 
+//商品情報を登録
 function regist_item($db, $name, $price, $stock, $status, $image){
   $filename = get_upload_filename($image);
   if(validate_item($name, $price, $stock, $filename, $status) === false){
@@ -60,8 +62,10 @@ function regist_item($db, $name, $price, $stock, $status, $image){
   return regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename);
 }
 
+//商品情報をトランザクションで登録
 function regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename){
   $db->beginTransaction();
+  //商品情報をDBへ書き込み
   if(insert_item($db, $name, $price, $stock, $filename, $status) 
     && save_image($image, $filename)){
     $db->commit();
@@ -69,9 +73,9 @@ function regist_item_transaction($db, $name, $price, $stock, $status, $image, $f
   }
   $db->rollback();
   return false;
-  
 }
 
+//商品情報をDBへ書き込み
 function insert_item($db, $name, $price, $stock, $filename, $status){
   $status_value = PERMITTED_ITEM_STATUSES[$status];
   $sql = "
@@ -85,10 +89,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
       )
     VALUES(:name, :price, :stock, :filename, :status_value);
   ";
-
   return execute_query($db, $sql, array(':name'=>$name,':price'=>$price,':stock'=>$stock,':filename'=>$filename,':status_value'=>$status_value));
 }
 
+//商品ステータスを更新
 function update_item_status($db, $item_id, $status){
   $sql = "
     UPDATE
@@ -99,10 +103,10 @@ function update_item_status($db, $item_id, $status){
       item_id = :item_id
     LIMIT 1
   ";
-  
   return execute_query($db, $sql, array(':status'=>$status,':item_id'=>$item_id));
 }
 
+//商品の在庫数を更新
 function update_item_stock($db, $item_id, $stock){
   $sql = "
     UPDATE
@@ -113,10 +117,10 @@ function update_item_stock($db, $item_id, $stock){
       item_id = :item_id
     LIMIT 1
   ";
-
   return execute_query($db, $sql, array(':stock'=>$stock,':item_id'=>$item_id));
 }
 
+//商品を削除
 function destroy_item($db, $item_id){
   $item = get_item($db, $item_id);
   if($item === false){
@@ -132,6 +136,7 @@ function destroy_item($db, $item_id){
   return false;
 }
 
+//商品を削除
 function delete_item($db, $item_id){
   $sql = "
     DELETE FROM
@@ -140,17 +145,15 @@ function delete_item($db, $item_id){
       item_id = :item_id
     LIMIT 1
   ";
-  
   return execute_query($db, $sql, array(':item_id'=>$item_id));
 }
 
-
-// 非DB
-
+//商品ステータスを取得
 function is_open($item){
   return $item['status'] === 1;
 }
 
+//商品情報を検証する
 function validate_item($name, $price, $stock, $filename, $status){
   $is_valid_item_name = is_valid_item_name($name);
   $is_valid_item_price = is_valid_item_price($price);
@@ -165,6 +168,7 @@ function validate_item($name, $price, $stock, $filename, $status){
     && $is_valid_item_status;
 }
 
+//商品名を検証する
 function is_valid_item_name($name){
   $is_valid = true;
   if(is_valid_length($name, ITEM_NAME_LENGTH_MIN, ITEM_NAME_LENGTH_MAX) === false){
@@ -174,6 +178,7 @@ function is_valid_item_name($name){
   return $is_valid;
 }
 
+//商品価格を検証する
 function is_valid_item_price($price){
   $is_valid = true;
   if(is_positive_integer($price) === false){
@@ -183,6 +188,7 @@ function is_valid_item_price($price){
   return $is_valid;
 }
 
+//商品の在庫数を検証する
 function is_valid_item_stock($stock){
   $is_valid = true;
   if(is_positive_integer($stock) === false){
@@ -192,6 +198,7 @@ function is_valid_item_stock($stock){
   return $is_valid;
 }
 
+//商品の画像名を検証する
 function is_valid_item_filename($filename){
   $is_valid = true;
   if($filename === ''){
@@ -200,6 +207,7 @@ function is_valid_item_filename($filename){
   return $is_valid;
 }
 
+//商品のステータスを検証する
 function is_valid_item_status($status){
   $is_valid = true;
   if(isset(PERMITTED_ITEM_STATUSES[$status]) === false){
