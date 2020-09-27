@@ -28,7 +28,7 @@
         <tr>
           <td><?php print(h($history['order_id'])); ?></td>
           <td><?php print(h($history['created'])); ?></td>
-          <td><?php print(h($history['total'])); ?></td>
+          <td><?php print(h($history['total'])); ?>円</td>
           <td>
             <form method="post" action="details.php">
               <input type="submit" value="購入明細表示">
