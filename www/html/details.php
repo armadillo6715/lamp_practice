@@ -14,7 +14,7 @@ if(is_logined() === false){
 
 $db = get_db_connect();
 $user = get_login_user($db);
-$histories = get_history($db, $user['user_id']);
+$histories = get_history($db, $user['user_id'],$user['type']);
 
 $order_id = get_post('order_id');
 $details = get_detail($db, $order_id);

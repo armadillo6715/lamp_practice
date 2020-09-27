@@ -24,6 +24,9 @@
         </tr>
       </thead>
       <tbody>
+      <?php 
+      var_dump($user);
+      ?>
       <?php foreach($histories as $history){ ?>
         <tr>
           <td><?php print(h($history['order_id'])); ?></td>
