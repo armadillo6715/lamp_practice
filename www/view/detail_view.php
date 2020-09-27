@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+  <?php include VIEW_PATH . 'templates/head.php'; ?>
+  <link rel="stylesheet" href="<?php print(h(STYLESHEET_PATH . 'index.css')); ?>">
     <meta charset="UTF-8">
     <title>購入明細</title>
   </head>
 
   <body>
+    <?php include VIEW_PATH . 'templates/header_logined.php'; ?>  
     <h1>購入明細</h1>
 
     <!-- メッセージ・エラーメッセージ -->
