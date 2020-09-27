@@ -1,3 +1,4 @@
+<?php header("X-FRAME-OPTIONS: DENY"); ?>
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -25,13 +26,13 @@
       <tbody>
       <?php foreach($histories as $history){ ?>
         <tr>
-          <td><?php print($history['order_id']); ?></td>
-          <td><?php print($history['created']); ?></td>
-          <td><?php print($history['total']); ?></td>
+          <td><?php print(h($history['order_id'])); ?></td>
+          <td><?php print(h($history['created'])); ?></td>
+          <td><?php print(h($history['total'])); ?></td>
           <td>
             <form method="post" action="details.php">
               <input type="submit" value="購入明細表示">
-              <input type="hidden" name="order_id" value="<?php print($history['order_id']); ?>">
+              <input type="hidden" name="order_id" value="<?php print(h($history['order_id'])); ?>">
             </form>
           </td>
         </tr>
