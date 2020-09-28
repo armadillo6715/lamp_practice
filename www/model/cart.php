@@ -105,6 +105,7 @@ function purchase_carts($db, $carts){
   if(validate_cart_purchase($carts) === false){
     return false;
   }
+  //コントローラへ
   $db->beginTransaction();
   try {
     insert_history($db,$carts[0]['user_id']);
