@@ -25,17 +25,11 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach($histories as $history){ ?>
+      <?php foreach($detail_total as $detail_totals){ ?>
         <tr>
-          <td><?php print(h($history['order_id'])); ?></td>
-          <td><?php print(h($history['created'])); ?></td>
-          <td><?php print(h($history['total'])); ?>円</td>
-          <td>
-            <form method="post" action="details.php">
-              <input type="submit" value="購入明細表示">
-              <input type="hidden" name="order_id" value="<?php print(h($history['order_id'])); ?>">
-            </form>
-          </td>
+          <td><?php print(h($detail_totals['order_id'])); ?></td>
+          <td><?php print(h($detail_totals['created'])); ?></td>
+          <td><?php print(h($detail_totals['total'])); ?>円</td>
         </tr>
       <?php } ?>
       </tbody>

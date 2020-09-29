@@ -17,7 +17,33 @@ function get_detail($db, $order_id){
       WHERE
         order_id = ?
       GROUP BY
-        items.price, details.amount, details.created, items.name
+        details.detail_id
+    ";
+    return fetch_all_query($db, $sql, array($order_id));
+}
+
+function get_detail_total($db, $order_id){
+    $sql = "
+      SELECT
+        histories.order_id,
+        histories.created,
+        SUM(items.price * details.amount) AS total
+      FROM
+        histories
+      JOIN
+        details
+      ON
+        histories.order_id = details.order_id
+      JOIN
+        items
+      ON
+        details.item_id = items.item_id
+      WHERE
+        histories.order_id = ?
+      GROUP BY
+        histories.order_id
+      ORDER BY
+        created desc
     ";
     return fetch_all_query($db, $sql, array($order_id));
 }
