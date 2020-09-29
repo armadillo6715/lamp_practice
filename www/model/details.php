@@ -27,7 +27,7 @@ function get_detail_total($db, $order_id){
       SELECT
         histories.order_id,
         histories.created,
-        SUM(items.price * details.amount) AS total
+        SUM(details.then_price * details.amount) AS total
       FROM
         histories
       JOIN
