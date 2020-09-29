@@ -3,7 +3,7 @@
 function get_detail($db, $order_id){
     $sql = "
       SELECT
-        items.price,
+        details.then_price,
         details.amount,
         details.created,
         SUM(details.then_price * details.amount) AS subtotal,

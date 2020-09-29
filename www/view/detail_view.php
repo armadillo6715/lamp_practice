@@ -49,7 +49,7 @@
       <?php foreach($details as $detail){ ?>
         <tr>
           <td><?php print(h($detail['name'])); ?></td>
-          <td><?php print(h($detail['price'])); ?>円</td>
+          <td><?php print(h($detail['then_price'])); ?>円</td>
           <td><?php print(h($detail['amount'])); ?>個</td>
           <td><?php print(h($detail['subtotal'])); ?>円</td>
         </tr>
