@@ -142,6 +142,26 @@ function insert_detail($db,$order_id,$item_id,$amount,$price){
   return execute_query($db,$sql,array($order_id,$item_id,$amount,$price));
 }
 
+function history_detail($db,$carts) {
+  if(purchase_carts($db, $carts) === false){
+    set_error('商品が購入できませんでした。');
+    redirect_to(CART_URL);
+  } else {
+    $db->beginTransaction();
+    try {
+      insert_history($db,$carts[0]['user_id']);
+      $order_id = $db->lastInsertId();
+      foreach($carts as $cart){
+        insert_detail($db,$order_id,$cart['item_id'],$cart['amount'],$cart['price']);
+      }
+      $db->commit();
+    } catch(PDOException $e) {
+      $db->rollback();
+      throw $e;
+    }
+  }
+}
+
 function delete_user_carts($db, $user_id){
   $sql = "
     DELETE FROM
