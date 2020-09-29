@@ -14,7 +14,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 $items = get_open_items($db);
-
+$total_amount = ranking($db);
 //トークン生成
 $token = get_csrf_token();
 

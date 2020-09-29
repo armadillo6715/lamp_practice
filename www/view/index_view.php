@@ -44,6 +44,9 @@
       </div>
     </div>
   </div>
-  
+  <p><?php var_dump($total_amount); ?></p>
+  <?php foreach($total_amount as $amount){ ?>
+      <p><?php print $amount['total_amount']; ?></p>
+  <?php } ?>
 </body>
 </html>
