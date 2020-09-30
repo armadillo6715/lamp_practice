@@ -210,12 +210,12 @@ function is_valid_item_status($status){
 function ranking($db) {
   $sql = "
     SELECT 
-      items.name
-      items.price
+      items.name,
+      items.price,
       SUM(details.amount) AS total_amount
     FROM 
       details
-    JOIN
+    INNER JOIN
       items
     ON 
       details.item_id = items.item_id
@@ -223,6 +223,7 @@ function ranking($db) {
       details.item_id
     ORDER BY
       total_amount desc
+    LIMIT 3
   ";
   return fetch_all_query($db, $sql, array());
 }
