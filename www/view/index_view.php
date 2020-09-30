@@ -44,22 +44,5 @@
       </div>
     </div>
   </div>
-  <p><?php var_dump($total_amount); ?></p>
-    <table>
-      <tr>
-        <th>ランキング</th>
-        <th>商品名</th>
-        <th>価格</th>
-        <th>売却数</th>
-      </tr>
-      <?php foreach($ranking as $rank){ ?>
-      <tr>
-        <td><?php print $rank['rank']; ?></td>
-        <td><?php print $rank['name']; ?></td>
-        <td><?php print $rank['price']; ?>円</td>
-        <td><?php print $rank['total_amount']; ?>個</td>
-      </tr>
-      <?php } ?>
-    </table>
 </body>
 </html>
