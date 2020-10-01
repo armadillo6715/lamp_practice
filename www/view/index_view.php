@@ -44,6 +44,21 @@
       </div>
     </div>
   </div>
-  
+  <table>
+    <tr>
+      <th>順位</th>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>売却数</th>
+    </tr>
+    <?php foreach($ranking as $rank){ ?>
+    <tr>
+      <td><?php print h($i+=1); ?>位</td>
+      <td><?php print h($rank['name']); ?></td>
+      <td><?php print h($rank['price']); ?>円</td>
+      <td><?php print h($rank['total_amount']); ?>個</td>
+    </tr>
+    <?php } ?>
+  </table>
 </body>
 </html>

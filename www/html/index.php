@@ -19,7 +19,8 @@ $db = get_db_connect();
 $user = get_login_user($db);
 //公開商品のみ取得
 $items = get_open_items($db);
-
+//購入ランキングを取得
+$ranking = ranking($db);
 //トークン生成
 $token = get_csrf_token();
 
