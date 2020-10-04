@@ -53,7 +53,7 @@
     </tr>
     <?php foreach($ranking as $rank){ ?>
     <tr>
-      <td><?php print h($i+=1); ?>位</td>
+      <td><?php print h($i++); ?>位</td>
       <td><?php print h($rank['name']); ?></td>
       <td><?php print h($rank['price']); ?>円</td>
       <td><?php print h($rank['total_amount']); ?>個</td>

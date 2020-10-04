@@ -21,6 +21,8 @@ $user = get_login_user($db);
 $items = get_open_items($db);
 //購入ランキングを取得
 $ranking = ranking($db);
+//初期化（初期値は1）
+$i = 1;
 //トークン生成
 $token = get_csrf_token();
 
