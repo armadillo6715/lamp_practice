@@ -15,11 +15,11 @@ function get_detail($db, $order_id){
       ON
         details.item_id = items.item_id
       WHERE
-        order_id = ?
+        order_id = :order_id
       GROUP BY
         details.detail_id
     ";
-    return fetch_all_query($db, $sql, array($order_id));
+    return fetch_all_query($db, $sql, array('order_id'=>$order_id));
 }
 
 function get_detail_total($db, $order_id){
@@ -39,11 +39,11 @@ function get_detail_total($db, $order_id){
       ON
         details.item_id = items.item_id
       WHERE
-        histories.order_id = ?
+        histories.order_id = :order_id
       GROUP BY
         histories.order_id
       ORDER BY
         created desc
     ";
-    return fetch_all_query($db, $sql, array($order_id));
+    return fetch_all_query($db, $sql, array('order_id'=>$order_id));
 }

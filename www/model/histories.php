@@ -43,12 +43,12 @@ function get_history($db, $user_id,$user_type){
       ON
         details.item_id = items.item_id
       WHERE
-        user_id = ?
+        user_id = :user_id
       GROUP BY
         order_id
       ORDER BY
         created desc
     ";
-    return fetch_all_query($db, $sql, array($user_id));
+    return fetch_all_query($db, $sql, array(':user_id'=>$user_id));
   }
 }

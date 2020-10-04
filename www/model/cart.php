@@ -21,9 +21,9 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = ?
+      carts.user_id = :user_id
   ";
-  return fetch_all_query($db, $sql, array($user_id));
+  return fetch_all_query($db, $sql, array(':user_id'=>$user_id));
 }
 
 function get_user_cart($db, $user_id, $item_id){
@@ -45,12 +45,12 @@ function get_user_cart($db, $user_id, $item_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = ?
+      carts.user_id = :user_id
     AND
-      items.item_id = ?
+      items.item_id = :item_id
   ";
 
-  return fetch_query($db, $sql, array($user_id,$item_id));
+  return fetch_query($db, $sql, array(':user_id'=>$user_id,':item_id'=>$item_id));
 
 }
 
@@ -123,9 +123,9 @@ function insert_history($db, $user_id){
       histories(
         user_id
       )
-    VALUES(?)
+    VALUES(:user_id)
   ";
-  return execute_query($db, $sql, array($user_id));
+  return execute_query($db, $sql, array(':user_id'=>$user_id));
 }
 
 function insert_detail($db,$order_id,$item_id,$amount,$price){
@@ -137,9 +137,9 @@ function insert_detail($db,$order_id,$item_id,$amount,$price){
         amount,
         then_price
       )
-    VALUES(?,?,?,?)
+    VALUES(:order_id,:item_id,:amount,:price)
   ";
-  return execute_query($db,$sql,array($order_id,$item_id,$amount,$price));
+  return execute_query($db,$sql,array(':order_id'=>$order_id,':item_id'=>$item_id,':amount'=>$amount,':price'=>$price));
 }
 
 function history_detail($db,$carts) {
