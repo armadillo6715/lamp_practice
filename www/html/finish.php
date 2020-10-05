@@ -23,10 +23,7 @@ $user = get_login_user($db);
 
 $carts = get_user_carts($db, $user['user_id']);
 
-if(purchase_carts($db, $carts) === false){
-  set_error('商品が購入できませんでした。');
-  redirect_to(CART_URL);
-} 
+history_detail($db,$carts);
 
 $total_price = sum_carts($carts);
 
