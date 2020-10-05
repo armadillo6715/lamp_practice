@@ -22,6 +22,9 @@ define('HOME_URL', '/index.php');
 define('CART_URL', '/cart.php');
 define('FINISH_URL', '/finish.php');
 define('ADMIN_URL', '/admin.php');
+
+define('HISTORY_URL', '/histories.php');
+define('DETAIL_URL', '/details.php');
 //一文字以上の英数字
 define('REGEXP_ALPHANUMERIC', '/\A[0-9a-zA-Z]+\z/');
 //0以上の数字

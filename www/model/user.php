@@ -3,6 +3,7 @@
 require_once MODEL_PATH . 'functions.php';
 //DB関数ファイルの読み込み
 require_once MODEL_PATH . 'db.php';
+require_once MODEL_PATH . 'details.php';
 
 //ユーザー情報の取得
 function get_user($db, $user_id){
@@ -15,10 +16,10 @@ function get_user($db, $user_id){
     FROM
       users
     WHERE
-      user_id = {$user_id}
+      user_id = :user_id
     LIMIT 1
   ";
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, array(':user_id'=>$user_id));
 }
 
 //ユーザー名によるユーザー情報の取得
@@ -32,10 +33,15 @@ function get_user_by_name($db, $name){
     FROM
       users
     WHERE
-      name = '{$name}'
+      name = :name
     LIMIT 1
   ";
+<<<<<<< HEAD
   return fetch_query($db, $sql);
+=======
+
+  return fetch_query($db, $sql, array(':name'=>$name));
+>>>>>>> 0c4e587e092451e72a89a997d2be846db7d18b1f
 }
 
 //ログインユーザーの特定
@@ -120,7 +126,7 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES (':name', ':password');
+    VALUES (:name, :password);
   ";
   return execute_query($db, $sql, array(':name'=>$name,':password'=>$password));
 }
