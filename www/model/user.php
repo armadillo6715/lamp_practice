@@ -36,12 +36,7 @@ function get_user_by_name($db, $name){
       name = :name
     LIMIT 1
   ";
-<<<<<<< HEAD
-  return fetch_query($db, $sql);
-=======
-
   return fetch_query($db, $sql, array(':name'=>$name));
->>>>>>> 0c4e587e092451e72a89a997d2be846db7d18b1f
 }
 
 //ログインユーザーの特定
