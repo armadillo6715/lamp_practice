@@ -73,6 +73,14 @@
   <?php if($now_page<$total_page) { ?>
     <a href="/index.php?page=<?php print h($now_page + 1);?>">次へ</a>
   <?php } ?>
-  <p><?php print $total_item['total_item']; ?>件中の<?php print $start_item+1; ?>-<?php print $start_item+MAX_VIEW; ?>件目の商品</p>
+  <p>
+    <?php print h($total_item['total_item']); ?>件中の<?php print h($start_item+1); ?>-
+    <?php if ($start_item+MAX_VIEW > $total_item['total_item']) {
+      print h($total_item['total_item']);
+    }else{
+      print h($start_item+MAX_VIEW); 
+    }
+    ?>件目の商品
+  </p>
 </body>
 </html>
