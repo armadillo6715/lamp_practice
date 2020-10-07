@@ -16,9 +16,9 @@ function get_item($db, $item_id){
     FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = :item_id
   ";
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql ,array(':item_id'=>$item_id));
 }
 
 //全商品情報を取得
