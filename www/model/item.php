@@ -42,6 +42,13 @@ function get_items($db, $is_open = false){
   }
   return fetch_all_query($db, $sql);
 }
+//全商品数
+function total_item($db) {
+  $sql = '
+    SELECT COUNT(*) AS total_item FROM items 
+  ';
+  return fetch_query($db,$sql);
+}
 
 //DB接続状態ならば、全商品情報を取得
 function get_all_items($db){
