@@ -66,6 +66,7 @@
       <th>価格</th>
       <th>売却数</th>
     </tr>
+    <!-- ランキング機能 -->
     <?php foreach($ranking as $rank){ ?>
     <tr>
       <td><?php print h($i++); ?>位</td>
@@ -75,12 +76,13 @@
     </tr>
     <?php } ?>
   </table>
+  <!-- ページネーション -->
   <?php if($now_page>1) { ?>
     <a class="page" href="/index.php?page=<?php print h($now_page - 1);?>">前へ</a>
   <?php } ?>
   <?php for($i=1;$i<=$total_page;$i++){ ?>
-    <?php if($i == $now_page) { ?>
-      <a class="now_page" href="#"><?php print h($i); ?></a>
+    <?php if($i === $now_page) { ?>
+      <a class="now_page" href="/index.php?page=<?php print h($i); ?>"><?php print h($i); ?></a>
     <?php }else{ ?>
       <a class="page" href="/index.php?page=<?php print h($i); ?>"><?php print h($i); ?></a>
     <?php } ?>
