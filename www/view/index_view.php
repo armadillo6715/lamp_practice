@@ -5,7 +5,22 @@
   <?php include VIEW_PATH . 'templates/head.php'; ?>
   
   <title>商品一覧</title>
-  <link rel="stylesheet" href="<?php print(h(STYLESHEET_PATH . 'index.css')); ?>">
+  <link rel="stylesheet" href="<?php print h(STYLESHEET_PATH . 'index.css'); ?>">
+  <style>
+  .page{
+    padding:0 10px;
+    border:solid 1px;
+  }
+  .now_page{
+    color:black;
+    background-color:gray;
+    padding:0 10px;
+    border:solid 1px;
+  }
+  .page:hover{
+    background-color:yellow;
+  }
+  </style>
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
@@ -61,20 +76,20 @@
     <?php } ?>
   </table>
   <?php if($now_page>1) { ?>
-    <a href="/index.php?page=<?php print h($now_page - 1);?>">前へ</a>
+    <a class="page" href="/index.php?page=<?php print h($now_page - 1);?>">前へ</a>
   <?php } ?>
   <?php for($i=1;$i<=$total_page;$i++){ ?>
     <?php if($i == $now_page) { ?>
-      <a href="#"><?php print h($i); ?></a>
+      <a class="now_page" href="#"><?php print h($i); ?></a>
     <?php }else{ ?>
-      <a href="/index.php?page=<?php print h($i); ?>"><?php print h($i); ?></a>
+      <a class="page" href="/index.php?page=<?php print h($i); ?>"><?php print h($i); ?></a>
     <?php } ?>
   <?php } ?>
   <?php if($now_page<$total_page) { ?>
-    <a href="/index.php?page=<?php print h($now_page + 1);?>">次へ</a>
+    <a class="page" href="/index.php?page=<?php print h($now_page + 1);?>">次へ</a>
   <?php } ?>
   <p>
-    <?php print h($total_item['total_item']); ?>件中の<?php print h($start_item+1); ?>-
+    <?php print h($total_item['total_item']); ?>件中の<?php print h($start_item+1); ?> -
     <?php if ($start_item+MAX_VIEW > $total_item['total_item']) {
       print h($total_item['total_item']);
     }else{
