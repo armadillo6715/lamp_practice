@@ -17,14 +17,28 @@ if(is_logined() === false){
 $db = get_db_connect();
 //セッションIDを取得
 $user = get_login_user($db);
+//トークン生成
+$token = get_csrf_token();
 //公開商品のみ取得
 $items = get_open_items($db);
 //購入ランキングを取得
 $ranking = ranking($db);
 //初期化（初期値は1）
 $i = 1;
-//トークン生成
-$token = get_csrf_token();
 
+//全商品数
+$total_item = total_item($db);
+//全ページ数
+$total_page = ceil($total_item['total_item']/MAX_VIEW);
+//現在いるのページ
+if(!isset($_GET['page'])){
+  $now_page = 1;
+}else{
+  $now_page = (int)$_GET['page'];
+}
+//取得開始の商品
+$start_item = ($now_page-1) * MAX_VIEW;
+//商品の取得範囲
+$item_range = array_slice($items,$start_item,MAX_VIEW,true);
 //外部ファイルを読み込み
 include_once VIEW_PATH . 'index_view.php';
